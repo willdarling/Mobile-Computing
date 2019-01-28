@@ -98,9 +98,9 @@ class sensorData(data.Dataset):
                 print("We have a problem.")
                 exit(1)
 
-            sequences = sequences[int(length/10)*6:int(length*7.5/10)]
+            sequences = sequences[int(length/10)*6:int(length*7/10)]
 
-            targets = targets[int(length/10)*6:int(length*7.5/10)]
+            targets = targets[int(length/10)*6:int(length*7/10)]
 
         if mode == 'test':
 
@@ -111,8 +111,8 @@ class sensorData(data.Dataset):
                 print("We have a problem.")
                 exit(1)
 
-            sequences = sequences[int(length*7.5/10):int(length/10)*8]
-            targets = targets[int(length*7.5/10):int(length/10)*8]
+            sequences = sequences[int(length*7/10):int(length/10)*8]
+            targets = targets[int(length*7/10):int(length/10)*8]
 
         self.sequences = torch.stack(sequences)
         self.targets = torch.LongTensor(torch.stack(targets))

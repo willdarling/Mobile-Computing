@@ -18,7 +18,7 @@ CUDA = True
 SAVED_MODELS = 'models'
 dataPATH = 'data/'
 
-MAX_EPOCHS = 30
+MAX_EPOCHS = 6
 SEQ_LEN = 300
 BATCH_SIZE = 10
 HIDDEN_SIZE = 20
@@ -138,11 +138,11 @@ def train(model, optimizer, criterion, num_epochs, trainloader, devloader):
     return model
 
 
-def test(model, dataloader):
+def test(model, testloader):
     losses = []
     criterion = nn.NLLLoss()
 
-    for batch, batch_targets in dataloader:
+    for batch, batch_targets in testloader:
         batch = batch.permute(1, 0, 2)
 
         
