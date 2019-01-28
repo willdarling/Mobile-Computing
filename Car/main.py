@@ -192,11 +192,11 @@ def main():
 
     # Rally the Datasets
     train_set_0 = sensorData('train', inputList, SEQ_LEN)
-    train_set = torch.utils.data.TensorDataset(train_set_0.sequences.long(), train_set_0.targets.reshape(-1, 1).long())
+    train_set = torch.utils.data.TensorDataset(train_set_0.sequences, train_set_0.targets.reshape(-1, 1))
     dev_set_0 = sensorData('dev', inputList, SEQ_LEN)
-    dev_set= torch.utils.data.TensorDataset(dev_set_0.sequences.long(), dev_set_0.targets.reshape(-1, 1).long())
+    dev_set= torch.utils.data.TensorDataset(dev_set_0.sequences, dev_set_0.targets.reshape(-1, 1))
     test_set_0 = sensorData('test', inputList, SEQ_LEN)
-    test_set= torch.utils.data.TensorDataset(test_set_0.sequences.long(), test_set_0.targets.reshape(-1, 1).long())
+    test_set= torch.utils.data.TensorDataset(test_set_0.sequences, test_set_0.targets.reshape(-1, 1))
 
 
     trainloader = data.DataLoader(train_set, BATCH_SIZE, shuffle=True, num_workers=4, drop_last=True)
