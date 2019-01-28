@@ -80,7 +80,11 @@ def train(model, optimizer, criterion, num_epochs, trainloader, devloader):
 
             y_hat = model(batch.cuda())
             
-            batch_targets = torch.stack(batch_targets)
+            b_targets = []
+            for tensor in batch_targets:
+                b_targets.append(tensor)
+            
+            batch_targets = torch.stack(b_targets)
             print(batch_targets)
 
             loss = criterion(y_hat.cuda(), batch_targets.cuda())
