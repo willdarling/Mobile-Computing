@@ -80,13 +80,15 @@ def train(model, optimizer, criterion, num_epochs, trainloader, devloader):
 
             y_hat = model(batch.cuda())
             
+            
+            
             b_targets = []
             for tensor in batch_targets:
                 b_targets.append(tensor)
-            
             batch_targets = torch.cat(b_targets)
-            print(batch_targets)
-
+            
+            
+            
             loss = criterion(y_hat.cuda(), batch_targets.cuda())
             loss.backward()
             optimizer.step()
@@ -142,6 +144,13 @@ def test(model, dataloader):
 
     for batch, batch_targets in dataloader:
         batch = batch.permute(1, 0, 2)
+
+        
+        b_targets = []
+        for tensor in batch_targets:
+            b_targets.append(tensor)
+        batch_targets = torch.cat(b_targets)
+
 
         y_hat = model(batch.cuda())
         loss = criterion(y_hat.cuda(), batch_targets.cuda())
