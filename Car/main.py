@@ -168,15 +168,15 @@ def catDict(PATH):
 
             sample = sample['data']
 
-            xGyro = sample['xGyro']
-            zAccl = sample['zAccl']
-            yGyro = sample['yGyro']
-            zGyro = sample['zGyro']
-            xAccl = sample['xAccl']
-            xMag = sample['xMag']
-            yMag = sample['yMag']
-            zMag = sample['zMag']
-            yAccl = sample['yAccl']
+            xGyro = float(sample['xGyro'])
+            zAccl = float(sample['zAccl'])
+            yGyro = float(sample['yGyro'])
+            zGyro = float(sample['zGyro'])
+            xAccl = float(sample['xAccl'])
+            xMag = float(sample['xMag'])
+            yMag = float(sample['yMag'])
+            zMag = float(sample['zMag'])
+            yAccl = float(sample['yAccl'])
 
             time_dict[float(time)] = [xGyro, zAccl, yGyro, zGyro, xAccl, xMag, yMag, zMag, yAccl]
 
