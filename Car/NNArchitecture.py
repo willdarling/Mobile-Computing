@@ -21,6 +21,9 @@ class MyGRU(nn.Module):
             self.scores = nn.LogSoftmax(dim=1)
 
         def forward(self, input):
+        
+            print(type(input))
+        
             output, _ = self.network(input.cuda(), self.initHidden().cuda())
             squeezed = self.linear(output[-1].cuda()).cuda()
             scores = self.scores(squeezed.cuda()).cuda()
