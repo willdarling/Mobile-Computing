@@ -24,10 +24,10 @@ class MyGRU(nn.Module):
         
             hidden = self.initHidden()
             
-            #print(hidden[0][0][0].item())
-            print(type(input[0][0]))
-            print(input[0][0].dtype)
-            print(input[0][0].size())
+            print(input[0][0][0].item())
+            print(type(input[0][0][0]))
+            print(input[0][0][0].dtype)
+            print(input[0][0][0].size())
         
             output, _ = self.network(input.cuda(), hidden.cuda())
             squeezed = self.linear(output[-1].cuda()).cuda()
