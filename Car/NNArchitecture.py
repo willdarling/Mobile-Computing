@@ -23,12 +23,6 @@ class MyGRU(nn.Module):
         def forward(self, input):
         
             hidden = self.initHidden()
-            
-            print(input[0][0][0].item())
-            print(type(input))
-            print(input.dtype)
-            print(input.size())
-        
             output, _ = self.network(input.cuda(), hidden.cuda())
             squeezed = self.linear(output[-1].cuda()).cuda()
             scores = self.scores(squeezed.cuda()).cuda()

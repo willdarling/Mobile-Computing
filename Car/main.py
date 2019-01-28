@@ -79,6 +79,9 @@ def train(model, optimizer, criterion, num_epochs, trainloader, devloader):
             batch = batch.permute(1, 0, 2)
 
             y_hat = model(batch.cuda())
+            
+            print(batch_targets)
+            print(batch_targets.size())
 
             loss = criterion(y_hat.cuda(), batch_targets.cuda())
             loss.backward()
