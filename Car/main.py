@@ -215,6 +215,11 @@ def main():
     test_set= torch.utils.data.TensorDataset(test_set_0.sequences, test_set_0.targets.reshape(-1, 1))
 
 
+    print(dev_set_0.sequences.size())
+    print(dev_set_0.targets.size())
+    print(test_set_0.sequences.size())
+    print(test_set_0.targets.size())
+
     trainloader = data.DataLoader(train_set, BATCH_SIZE, shuffle=True, num_workers=4, drop_last=True)
     devloader = data.DataLoader(dev_set, BATCH_SIZE, shuffle=True, num_workers=4, drop_last=True)
     testloader = data.DataLoader(test_set, BATCH_SIZE, shuffle=True, num_workers=4)
@@ -234,7 +239,7 @@ def main():
     model = train(model, optimizer, criterion, MAX_EPOCHS, trainloader, devloader)
 
     #Test the model
-    avg_loss = test(model, devloader)
+    avg_loss = test(model, testloader)
 
     print("Average Loss on the Test set is: " + str(avg_loss))
 
