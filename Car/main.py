@@ -15,7 +15,7 @@ from NNArchitecture import *
 
 CUDA = True
 
-SAVED_MODELS = 'models/'
+SAVED_MODELS = 'models'
 dataPATH = 'data/'
 
 MAX_EPOCHS = 30
