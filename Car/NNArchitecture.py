@@ -22,7 +22,7 @@ class MyGRU(nn.Module):
 
         def forward(self, input):
             
-            input.float()
+            input = input.float32()
         
             print(input.dtype)
         
