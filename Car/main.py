@@ -217,7 +217,7 @@ def main():
 
     trainloader = data.DataLoader(train_set, BATCH_SIZE, shuffle=True, num_workers=4, drop_last=True)
     devloader = data.DataLoader(dev_set, BATCH_SIZE, shuffle=True, num_workers=4, drop_last=True)
-    testloader = data.DataLoader(test_set, 1, shuffle=True, num_workers=4)
+    testloader = data.DataLoader(test_set, BATCH_SIZE, shuffle=True, num_workers=4)
 
     # Define the model, and loss criterion
     input_len = len(inputList[0][1][random.choice(list(inputList[0][1]))])
