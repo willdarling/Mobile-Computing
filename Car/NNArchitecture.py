@@ -75,7 +75,7 @@ class sensorData(data.Dataset):
                     entry = input_dict[key]
                     cur_sequence.append(entry)
 
-                sequences.append(torch.tensor(cur_sequence, dtype=torch.long))
+                sequences.append(torch.tensor(cur_sequence))
 
                 targets.append(torch.tensor(targetNum, dtype=torch.long))
 
