@@ -22,7 +22,7 @@ class MyGRU(nn.Module):
 
         def forward(self, input):
             
-            input = input.long()
+            input.long()
         
             print(input.dtype)
         
