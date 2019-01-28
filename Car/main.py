@@ -215,14 +215,9 @@ def main():
     test_set= torch.utils.data.TensorDataset(test_set_0.sequences, test_set_0.targets.reshape(-1, 1))
 
 
-    print(dev_set_0.sequences.size())
-    print(dev_set_0.targets.size())
-    print(test_set_0.sequences.size())
-    print(test_set_0.targets.size())
-
     trainloader = data.DataLoader(train_set, BATCH_SIZE, shuffle=True, num_workers=4, drop_last=True)
     devloader = data.DataLoader(dev_set, BATCH_SIZE, shuffle=True, num_workers=4, drop_last=True)
-    testloader = data.DataLoader(test_set, BATCH_SIZE, shuffle=True, num_workers=4)
+    testloader = data.DataLoader(test_set, BATCH_SIZE, shuffle=True, num_workers=4, drop_last=True)
 
     # Define the model, and loss criterion
     input_len = len(inputList[0][1][random.choice(list(inputList[0][1]))])
