@@ -54,6 +54,10 @@ class sensorData(data.Dataset):
                 targetNum = 0
             elif 'Driving' in action:
                 targetNum = 1
+            elif 'Standing' in action:
+                targetNum = 2
+            elif 'Walking' in action:
+                targetNum = 3
             else:
                 print("LOOKY HERE ^^^^")
                 print(repr(action))
@@ -98,10 +102,11 @@ class sensorData(data.Dataset):
                 print("We have a problem.")
                 exit(1)
 
-            sequences = sequences[int(length/10)*6:int(length*7/10)]
+            sequences = sequences[int(length/10)*6:int(length*8/10)]
 
-            targets = targets[int(length/10)*6:int(length*7/10)]
+            targets = targets[int(length/10)*6:int(length*8/10)]
 
+        """
         if mode == 'test':
 
             length = len(sequences)
@@ -113,7 +118,8 @@ class sensorData(data.Dataset):
 
             sequences = sequences[int(length*7/10):int(length/10)*8]
             targets = targets[int(length*7/10):int(length/10)*8]
-
+        """
+        
         self.sequences = torch.stack(sequences)
         self.targets = torch.LongTensor(torch.stack(targets))
 

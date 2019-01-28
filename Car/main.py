@@ -18,13 +18,13 @@ CUDA = True
 SAVED_MODELS = 'models'
 dataPATH = 'data/'
 
-MAX_EPOCHS = 30
-SEQ_LEN = 300
-BATCH_SIZE = 10
+MAX_EPOCHS = 10
+SEQ_LEN = 500
+BATCH_SIZE = 128
 HIDDEN_SIZE = 20
 NUM_LAYERS = 2
 OUTPUT_SIZE = 4
-LR = 0.00005
+LR = 0.0005
 
 
 def saveModel(model, dev_loss, PATH):
@@ -205,13 +205,14 @@ def catDict(PATH):
 def main():
 
     inputList = catDict(dataPATH)
+    inputListTest = catDict(dataPATH + "test/")
 
     # Rally the Datasets
     train_set_0 = sensorData('train', inputList, SEQ_LEN)
     train_set = torch.utils.data.TensorDataset(train_set_0.sequences, train_set_0.targets.reshape(-1, 1))
     dev_set_0 = sensorData('dev', inputList, SEQ_LEN)
     dev_set= torch.utils.data.TensorDataset(dev_set_0.sequences, dev_set_0.targets.reshape(-1, 1))
-    test_set_0 = sensorData('test', inputList, SEQ_LEN)
+    test_set_0 = sensorData('test', inputListTest, SEQ_LEN)
     test_set= torch.utils.data.TensorDataset(test_set_0.sequences, test_set_0.targets.reshape(-1, 1))
 
 
