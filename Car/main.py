@@ -234,7 +234,7 @@ def main():
     model = train(model, optimizer, criterion, MAX_EPOCHS, trainloader, devloader)
 
     #Test the model
-    avg_loss = test(model, testloader)
+    avg_loss = test(model, devloader)
 
     print("Average Loss on the Test set is: " + str(avg_loss))
 
