@@ -18,7 +18,7 @@ CUDA = True
 SAVED_MODELS = 'models'
 dataPATH = 'data/'
 
-MAX_EPOCHS = 6
+MAX_EPOCHS = 30
 SEQ_LEN = 300
 BATCH_SIZE = 10
 HIDDEN_SIZE = 20
@@ -235,8 +235,10 @@ def main():
 
     #Test the model
     avg_loss = test(model, testloader)
+    
+    accuracy = 1 / np.exp(avg_loss)
 
-    print("Average Loss on the Test set is: " + str(avg_loss))
+    print("Average Loss on the Test set is: " + str(avg_loss) + ", Accuracy: " + str(accuracy))
 
 main()
 
