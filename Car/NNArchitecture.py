@@ -120,7 +120,7 @@ class sensorData(data.Dataset):
             sequences = sequences[int(length*7.5/10):int(length/10)*8]
             targets = targets[int(length*7.5/10):int(length/10)*8]
 
-        self.sequences = torch.LongTensor(torch.stack(sequences))
+        self.sequences = torch.stack(sequences)
         self.targets = torch.LongTensor(torch.stack(targets))
 
     def __len__(self):
