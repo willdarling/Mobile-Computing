@@ -21,6 +21,8 @@ class MyGRU(nn.Module):
             self.scores = nn.LogSoftmax(dim=1)
 
         def forward(self, input):
+            
+            input = input.long()
         
             print(input.dtype)
         
