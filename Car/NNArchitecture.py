@@ -24,6 +24,7 @@ class MyGRU(nn.Module):
         
             hidden = self.initHidden()
             
+            print(hidden[0][0][0])
             print(type(hidden[0][0][0]))
             print(hidden[0][0][0].dtype)
             print(hidden[0][0][0].size())
