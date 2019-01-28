@@ -79,6 +79,7 @@ def train(model, optimizer, criterion, num_epochs, trainloader, devloader):
             batch = batch.permute(1, 0, 2)
 
             print(type(batch))
+            print(batch.dtype)
             print(batch.size())
 
             y_hat = model(batch.cuda())
