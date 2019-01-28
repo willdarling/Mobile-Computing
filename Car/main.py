@@ -78,13 +78,6 @@ def train(model, optimizer, criterion, num_epochs, trainloader, devloader):
         for batch, batch_targets in trainloader:
             batch = batch.permute(1, 0, 2)
 
-            batch = batch.float()
-
-            print(type(batch))
-            print(batch.dtype)
-            print(batch.size())
-    
-
             y_hat = model(batch.cuda())
 
             loss = criterion(y_hat.cuda(), batch_targets.cuda())
