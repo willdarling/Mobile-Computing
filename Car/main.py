@@ -80,8 +80,7 @@ def train(model, optimizer, criterion, num_epochs, trainloader, devloader):
 
             y_hat = model(batch.cuda())
             
-            print(batch_targets)
-            print(batch_targets.size())
+            print(torch.cat(batch_targets))
 
             loss = criterion(y_hat.cuda(), batch_targets.cuda())
             loss.backward()
