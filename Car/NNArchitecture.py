@@ -35,7 +35,7 @@ class MyGRU(nn.Module):
             return scores
 
         def initHidden(self):
-            h0 = torch.zeros(self.num_layers, self.batch_size, self.hidden_size, dtype=torch.long)
+            h0 = torch.zeros(self.num_layers, self.batch_size, self.hidden_size)
             return h0
 
 
