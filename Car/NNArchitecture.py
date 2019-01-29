@@ -16,7 +16,7 @@ class MyGRU(nn.Module):
             self.batch_size = batch_size
             self.num_layers = num_layers
 
-            self.network = nn.GRU(input_size, hidden_size, num_layers)
+            self.network = nn.GRU(input_size, hidden_size, num_layers, dropout=0.7)
             self.linear = nn.Linear(hidden_size, output_size)
             self.scores = nn.LogSoftmax(dim=1)
 

@@ -6,6 +6,7 @@ import sys
 import random
 import time
 import json
+import math
 from os.path import isfile, join
 from os import listdir
 
@@ -18,13 +19,13 @@ CUDA = True
 SAVED_MODELS = 'models'
 dataPATH = 'data/'
 
-MAX_EPOCHS = 10
-SEQ_LEN = 500
+MAX_EPOCHS = 20
+SEQ_LEN = 1000
 BATCH_SIZE = 128
-HIDDEN_SIZE = 20
+HIDDEN_SIZE = 9
 NUM_LAYERS = 2
 OUTPUT_SIZE = 4
-LR = 0.0005
+LR = 0.001
 
 
 def saveModel(model, dev_loss, PATH):
@@ -69,19 +70,22 @@ def formatSeconds(seconds):
 def train(model, optimizer, criterion, num_epochs, trainloader, devloader):
     best_dev_loss = 2 ** 20
     big_time = time.time()
+    k = 0
     for i in range(num_epochs):
         optimizer.zero_grad()
 
         j = 1
         train_losses = []
         small_time = time.time()
+        
         for batch, batch_targets in trainloader:
+            k  += 1
             batch = batch.permute(1, 0, 2)
 
+            optimizer.zero_grad()
+
             y_hat = model(batch.cuda())
-            
-            
-            
+        
             b_targets = []
             for tensor in batch_targets:
                 b_targets.append(tensor)
@@ -92,6 +96,39 @@ def train(model, optimizer, criterion, num_epochs, trainloader, devloader):
             loss = criterion(y_hat.cuda(), batch_targets.cuda())
             loss.backward()
             optimizer.step()
+
+
+            """
+
+            #Cosine annealing of the learning rate
+            batches_per_epoch = len(trainloader)
+            sum_total = batches_per_epoch * MAX_EPOCHS
+            batches_seen = (batches_per_epoch * i) + k
+            
+            
+            
+            
+
+            lr = LR * ((1 + math.cos(math.pi * batches_seen / sum_total)) / 2)
+
+            for param_group in optimizer.param_groups:
+                param_group['lr'] = lr
+            """
+            
+            # `clip_grad_norm` helps prevent the exploding gradient problem in RNNs / LSTMs.
+            #torch.nn.utils.clip_grad_norm(model.parameters(), args.clip)
+            norms = []
+            total_norm = 0
+
+            for p in model.parameters():
+                norm = p.grad.data.norm()
+
+                if norm > 0.25:
+                    p.grad.data.div_(max(norm, 1e-6) / 0.25)
+                    
+                    
+                    
+                    
 
             # Progress Bar ######################
 
@@ -144,7 +181,6 @@ def test(model, testloader):
 
     for batch, batch_targets in testloader:
         batch = batch.permute(1, 0, 2)
-
         
         b_targets = []
         for tensor in batch_targets:
@@ -229,7 +265,7 @@ def main():
     criterion = nn.NLLLoss()
 
     # Define the optimizer
-    optimizer = torch.optim.Adam(model.parameters(), lr=LR)
+    optimizer = torch.optim.RMSprop(model.parameters(), lr=LR, weight_decay = 0.1)
 
     # Train the model
     model = train(model, optimizer, criterion, MAX_EPOCHS, trainloader, devloader)
