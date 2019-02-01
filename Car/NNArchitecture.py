@@ -37,10 +37,8 @@ class MyGRU(nn.Module):
 class sensorData(data.Dataset):
 
     # mode = train/dev/test
-    def __init__(self, mode, input_list, sequence_len):
+    def __init__(self, input_list, sequence_len):
         super(sensorData, self).__init__()
-
-        self.mode = mode
 
         #[ ("Standing", {123124.45434: [234, 234, 2343, 454], ... })   ,  ()   ]
 
@@ -48,20 +46,7 @@ class sensorData(data.Dataset):
         sequences = []
         targets = []
 
-        for (action, input_dict) in input_list:
-
-            if 'Jumping' in action:
-                targetNum = 0
-            elif 'Driving' in action:
-                targetNum = 1
-            elif 'Standing' in action:
-                targetNum = 2
-            elif 'Walking' in action:
-                targetNum = 3
-            else:
-                print("LOOKY HERE ^^^^")
-                print(repr(action))
-                exit(1)
+        for (targetNum, input_dict) in input_list:
 
             keys = sorted(list(input_dict.keys()))
 
@@ -79,49 +64,19 @@ class sensorData(data.Dataset):
 
         # Define training, development and test sets
 
-        if mode == 'train':
-
-            length = len(sequences)
-            lenCheck = len(targets)
-
-            if length != lenCheck:
-                print("We have a problem.")
-                exit(1)
-
-            sequences = sequences[0:int(length/10)*6] + sequences[int(length/10)*8:]
 
 
-            targets = targets[0:int(length/10)*6] + targets[int(length/10)*8:]
+        length = len(sequences)
+        lenCheck = len(targets)
 
-        if mode == 'dev':
+        if length != lenCheck:
+            print("We have a problem.")
+            exit(1)
 
-            length = len(sequences)
-            lenCheck = len(targets)
-
-            if length != lenCheck:
-                print("We have a problem.")
-                exit(1)
-
-            sequences = sequences[int(length/10)*6:int(length*8/10)]
-
-            targets = targets[int(length/10)*6:int(length*8/10)]
-
-        """
-        if mode == 'test':
-
-            length = len(sequences)
-            lenCheck = len(targets)
-
-            if length != lenCheck:
-                print("We have a problem.")
-                exit(1)
-
-            sequences = sequences[int(length*7/10):int(length/10)*8]
-            targets = targets[int(length*7/10):int(length/10)*8]
-        """
         
         self.sequences = torch.stack(sequences)
         self.targets = torch.LongTensor(torch.stack(targets))
+        
 
     def __len__(self):
         'Returns the total number of samples'
